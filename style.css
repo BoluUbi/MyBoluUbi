@@ -1,0 +1,4073 @@
+/* ========================================================================
+   BOLU UBI 🐣
+   style.css
+   ------------------------------------------------------------------------
+   Responsive architecture
+   Emotional storytelling interface
+   Mobile-first / desktop-enhanced
+   ======================================================================== */
+
+
+/* ==========================================================================
+   01. ROOT / DESIGN TOKENS
+   ========================================================================== */
+
+:root {
+
+    /* ----------------------------------------------------------------------
+       COLOR SYSTEM
+       ---------------------------------------------------------------------- */
+
+    --paper: #f6f0e6;
+    --paper-deep: #eee4d5;
+    --paper-soft: #fbf8f2;
+
+    --ink: #292522;
+    --ink-soft: #625b54;
+    --ink-faint: #958d84;
+
+    --brown: #806653;
+    --brown-deep: #5c4637;
+    --brown-soft: #b49a85;
+
+    --rose: #b88e86;
+    --rose-soft: #ddc2bb;
+
+    --cream: #f8f3ea;
+    --white: #fffdf9;
+
+    --line: rgba(41, 37, 34, 0.12);
+    --line-strong: rgba(41, 37, 34, 0.22);
+
+    --shadow-soft:
+        0 12px 30px rgba(55, 43, 34, 0.07);
+
+    --shadow-card:
+        0 20px 55px rgba(55, 43, 34, 0.09);
+
+    --shadow-deep:
+        0 30px 80px rgba(44, 33, 26, 0.13);
+
+
+    /* ----------------------------------------------------------------------
+       TYPOGRAPHY
+       ---------------------------------------------------------------------- */
+
+    --font-body:
+        "DM Sans",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    --font-display:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    --font-hand:
+        "Caveat",
+        "Comic Sans MS",
+        cursive;
+
+
+    /* ----------------------------------------------------------------------
+       TYPE SCALE
+       ---------------------------------------------------------------------- */
+
+    --text-xs: clamp(0.68rem, 0.62rem + 0.18vw, 0.78rem);
+    --text-sm: clamp(0.78rem, 0.72rem + 0.18vw, 0.9rem);
+    --text-base: clamp(0.94rem, 0.88rem + 0.25vw, 1.08rem);
+    --text-lg: clamp(1.1rem, 1rem + 0.45vw, 1.35rem);
+
+    --text-xl:
+        clamp(1.65rem, 1.35rem + 1.3vw, 2.7rem);
+
+    --text-2xl:
+        clamp(2.1rem, 1.65rem + 2.1vw, 4rem);
+
+    --text-3xl:
+        clamp(2.8rem, 2rem + 3.8vw, 6.5rem);
+
+
+    /* ----------------------------------------------------------------------
+       SPACING
+       ---------------------------------------------------------------------- */
+
+    --space-1: 0.35rem;
+    --space-2: 0.55rem;
+    --space-3: 0.8rem;
+    --space-4: 1rem;
+    --space-5: 1.35rem;
+    --space-6: 1.7rem;
+    --space-7: 2.15rem;
+    --space-8: 2.8rem;
+    --space-9: 3.5rem;
+    --space-10: 4.5rem;
+    --space-11: 6rem;
+    --space-12: 8rem;
+
+
+    /* ----------------------------------------------------------------------
+       RADIUS
+       ---------------------------------------------------------------------- */
+
+    --radius-sm: 0.7rem;
+    --radius-md: 1.15rem;
+    --radius-lg: 1.7rem;
+    --radius-xl: 2.4rem;
+
+    --radius-pill: 999px;
+
+
+    /* ----------------------------------------------------------------------
+       LAYOUT
+       ---------------------------------------------------------------------- */
+
+    --content-width:
+        min(100% - 2rem, 1120px);
+
+    --content-narrow:
+        min(100% - 2rem, 820px);
+
+    --content-small:
+        min(100% - 2rem, 680px);
+
+    --scene-pad-inline:
+        clamp(1rem, 4vw, 4rem);
+
+    --scene-pad-block:
+        clamp(1.25rem, 4vw, 4rem);
+
+
+    /* ----------------------------------------------------------------------
+       TRANSITIONS
+       ---------------------------------------------------------------------- */
+
+    --ease-smooth:
+        cubic-bezier(0.22, 1, 0.36, 1);
+
+    --ease-soft:
+        cubic-bezier(0.4, 0, 0.2, 1);
+
+    --ease-spring:
+        cubic-bezier(0.16, 1.2, 0.3, 1);
+
+    --transition-fast:
+        180ms var(--ease-soft);
+
+    --transition-medium:
+        420ms var(--ease-smooth);
+
+    --transition-slow:
+        800ms var(--ease-smooth);
+
+
+    /* ----------------------------------------------------------------------
+       SAFE AREA
+       ---------------------------------------------------------------------- */
+
+    --safe-top:
+        max(1rem, env(safe-area-inset-top));
+
+    --safe-right:
+        max(1rem, env(safe-area-inset-right));
+
+    --safe-bottom:
+        max(1rem, env(safe-area-inset-bottom));
+
+    --safe-left:
+        max(1rem, env(safe-area-inset-left));
+}
+
+
+/* ==========================================================================
+   02. RESET
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+html {
+    min-height: 100%;
+    background: var(--paper);
+
+    font-size: 16px;
+
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+
+    scroll-behavior: auto;
+}
+
+
+body {
+    min-height: 100dvh;
+    margin: 0;
+
+    background: var(--paper);
+    color: var(--ink);
+
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.7;
+
+    overflow: hidden;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+
+button {
+    border: 0;
+}
+
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+img,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+
+img {
+    height: auto;
+}
+
+
+h1,
+h2,
+h3,
+p,
+figure {
+    margin: 0;
+}
+
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--brown);
+    outline-offset: 5px;
+}
+
+
+/* ==========================================================================
+   03. APP SHELL
+   ========================================================================== */
+
+.app {
+    position: relative;
+
+    width: 100%;
+    height: 100dvh;
+    min-height: 100svh;
+
+    isolation: isolate;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(255, 255, 255, 0.48),
+            transparent 45%
+        ),
+        var(--paper);
+}
+
+
+/* ==========================================================================
+   04. AMBIENT ATMOSPHERE
+   --------------------------------------------------------------------------
+   Very subtle.
+   Personal / paper-like rather than generic "glowing website".
+   ========================================================================== */
+
+.ambient {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    overflow: hidden;
+}
+
+
+.ambient-noise {
+    position: absolute;
+    inset: -50%;
+
+    opacity: 0.055;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+
+    transform: rotate(8deg);
+
+    animation: grainDrift 8s steps(8) infinite;
+}
+
+
+.ambient-orbit {
+    position: absolute;
+
+    width: 42vw;
+    height: 42vw;
+
+    min-width: 280px;
+    min-height: 280px;
+
+    border: 1px solid rgba(128, 102, 83, 0.045);
+
+    border-radius: 50%;
+}
+
+
+.ambient-orbit--one {
+    top: -20vw;
+    left: -15vw;
+}
+
+
+.ambient-orbit--two {
+    right: -22vw;
+    bottom: -25vw;
+}
+
+
+@keyframes grainDrift {
+
+    0% {
+        transform: translate(0, 0) rotate(8deg);
+    }
+
+    25% {
+        transform: translate(2%, -1%) rotate(8deg);
+    }
+
+    50% {
+        transform: translate(-1%, 2%) rotate(8deg);
+    }
+
+    75% {
+        transform: translate(1%, 1%) rotate(8deg);
+    }
+
+    100% {
+        transform: translate(0, 0) rotate(8deg);
+    }
+}
+
+
+/* ==========================================================================
+   05. SCENE PROGRESS
+   ========================================================================== */
+
+.scene-progress {
+    position: fixed;
+
+    top: calc(var(--safe-top) + 0.35rem);
+    left: 50%;
+
+    z-index: 100;
+
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+
+    transform: translateX(-50%);
+
+    color: var(--ink-faint);
+
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+
+    opacity: 0.7;
+
+    pointer-events: none;
+
+    user-select: none;
+}
+
+
+.scene-progress__line {
+    width: 34px;
+    height: 1px;
+
+    background: var(--line-strong);
+}
+
+
+.scene-progress__current {
+    color: var(--ink);
+}
+
+
+/* ==========================================================================
+   06. SCENES — CORE ARCHITECTURE
+   --------------------------------------------------------------------------
+   IMPORTANT:
+   Scene changes are NOT caused by scrolling.
+   JS changes .is-active.
+   ========================================================================== */
+
+.scene {
+    position: absolute;
+    inset: 0;
+
+    z-index: 1;
+
+    display: none;
+
+    width: 100%;
+    height: 100dvh;
+    min-height: 100svh;
+
+    overflow: hidden;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    background: transparent;
+
+    transition:
+        opacity 700ms var(--ease-smooth);
+}
+
+
+.scene.is-active {
+    display: block;
+
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+
+.scene__inner {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: var(--content-width);
+
+    min-height: 100%;
+
+    margin-inline: auto;
+
+    padding-top:
+        calc(
+            var(--scene-pad-block)
+            + var(--safe-top)
+        );
+
+    padding-right:
+        calc(
+            var(--scene-pad-inline)
+            + var(--safe-right)
+        );
+
+    padding-bottom:
+        calc(
+            var(--scene-pad-block)
+            + var(--safe-bottom)
+        );
+
+    padding-left:
+        calc(
+            var(--scene-pad-inline)
+            + var(--safe-left)
+        );
+}
+
+
+/* --------------------------------------------------------------------------
+   Centered scene
+   -------------------------------------------------------------------------- */
+
+.scene__inner--center {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    overflow: hidden;
+}
+
+
+/* --------------------------------------------------------------------------
+   Scrollable scene
+   -------------------------------------------------------------------------- */
+
+.scene__inner--scroll {
+    height: 100%;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    overscroll-behavior-y: contain;
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(128, 102, 83, 0.2)
+        transparent;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+
+.scene__inner--scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+
+.scene__inner--scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+.scene__inner--scroll::-webkit-scrollbar-thumb {
+    background: rgba(128, 102, 83, 0.18);
+    border-radius: 999px;
+}
+
+
+/* ==========================================================================
+   07. GENERIC TYPOGRAPHY
+   ========================================================================== */
+
+.handwritten {
+    font-family: var(--font-hand);
+    font-weight: 500;
+}
+
+
+.scene-kicker,
+.scene-header .scene-kicker {
+    margin-bottom: var(--space-2);
+
+    color: var(--brown);
+
+    font-size: var(--text-sm);
+    font-weight: 600;
+
+    letter-spacing: 0.08em;
+}
+
+
+.scene-title {
+    max-width: 850px;
+
+    color: var(--ink);
+
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 500;
+
+    line-height: 1.1;
+
+    letter-spacing: -0.025em;
+}
+
+
+.scene-title--medium {
+    font-size: var(--text-xl);
+}
+
+
+.scene-intro {
+    margin-top: var(--space-4);
+
+    color: var(--ink-soft);
+
+    font-size: var(--text-base);
+}
+
+
+.scene-header {
+    max-width: 850px;
+
+    margin-inline: auto;
+    margin-bottom: var(--space-9);
+
+    text-align: center;
+}
+
+
+/* ==========================================================================
+   08. REVEAL SYSTEM
+   --------------------------------------------------------------------------
+   JS will add .is-visible.
+   Before JS: content remains readable enough, never completely blank.
+   ========================================================================== */
+
+[data-reveal],
+[data-reveal-group] > * {
+    transition:
+        opacity 700ms var(--ease-smooth),
+        transform 800ms var(--ease-smooth);
+}
+
+
+.scene:not(.is-active) [data-reveal],
+.scene:not(.is-active) [data-reveal-group] > * {
+    opacity: 0;
+
+    transform:
+        translateY(18px);
+}
+
+
+.scene.is-active [data-reveal].is-visible,
+.scene.is-active [data-reveal-group].is-visible > *,
+.scene.is-active [data-reveal-group] > .is-visible {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+
+/* ==========================================================================
+   09. BUTTON SYSTEM
+   ========================================================================== */
+
+.scene-action {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    margin-top: var(--space-9);
+
+    padding-bottom: var(--space-3);
+}
+
+
+.btn {
+    position: relative;
+
+    display: inline-flex;
+
+    justify-content: center;
+    align-items: center;
+
+    min-height: 48px;
+
+    gap: 0.8rem;
+
+    padding:
+        0.78rem
+        1.1rem;
+
+    border-radius: var(--radius-pill);
+
+    cursor: pointer;
+
+    color: var(--ink);
+
+    background: transparent;
+
+    font-weight: 600;
+    font-size: var(--text-sm);
+
+    letter-spacing: -0.01em;
+
+    transition:
+        transform var(--transition-medium),
+        background-color var(--transition-medium),
+        border-color var(--transition-medium),
+        box-shadow var(--transition-medium),
+        color var(--transition-medium);
+}
+
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+
+.btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+
+/* --------------------------------------------------------------------------
+   Primary
+   -------------------------------------------------------------------------- */
+
+.btn--primary {
+    padding:
+        0.95rem
+        1.35rem;
+
+    color: var(--white);
+
+    background: var(--ink);
+
+    box-shadow:
+        0 10px 25px rgba(41, 37, 34, 0.12);
+}
+
+
+.btn--primary:hover {
+    box-shadow:
+        0 16px 35px rgba(41, 37, 34, 0.17);
+}
+
+
+/* --------------------------------------------------------------------------
+   Secondary
+   -------------------------------------------------------------------------- */
+
+.btn--secondary {
+    border: 1px solid var(--line-strong);
+
+    background:
+        rgba(255, 255, 255, 0.28);
+}
+
+
+.btn--secondary:hover {
+    background: rgba(255, 255, 255, 0.65);
+
+    border-color: rgba(41, 37, 34, 0.28);
+}
+
+
+/* --------------------------------------------------------------------------
+   Minimal
+   -------------------------------------------------------------------------- */
+
+.btn--minimal {
+    min-height: 42px;
+
+    padding-inline: 0.7rem;
+
+    color: var(--ink-soft);
+
+    border-bottom:
+        1px solid rgba(41, 37, 34, 0.18);
+
+    border-radius: 0;
+
+    font-weight: 500;
+}
+
+
+.btn--minimal:hover {
+    color: var(--ink);
+
+    border-color: var(--ink);
+}
+
+
+/* --------------------------------------------------------------------------
+   Transition / music button
+   -------------------------------------------------------------------------- */
+
+.btn--transition {
+    min-height: 56px;
+
+    padding:
+        0.95rem
+        1.2rem;
+
+    color: var(--white);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--brown-deep),
+            var(--brown)
+        );
+
+    box-shadow:
+        0 16px 36px rgba(92, 70, 55, 0.18);
+}
+
+
+.btn--transition::before {
+    content: "";
+
+    position: absolute;
+    inset: 2px;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.17);
+
+    border-radius: inherit;
+
+    pointer-events: none;
+}
+
+
+.btn--transition:hover {
+    box-shadow:
+        0 22px 48px rgba(92, 70, 55, 0.24);
+}
+
+
+.btn__music-mark {
+    display: grid;
+
+    width: 29px;
+    height: 29px;
+
+    place-items: center;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.25);
+
+    border-radius: 50%;
+
+    font-size: 0.9rem;
+}
+
+
+.btn__symbol {
+    transition:
+        transform var(--transition-medium);
+}
+
+
+.btn:hover .btn__symbol {
+    transform: translateX(4px);
+}
+
+
+.microcopy {
+    margin-top: 0.8rem;
+
+    color: var(--ink-faint);
+
+    font-size: var(--text-xs);
+
+    letter-spacing: 0.03em;
+}
+
+
+/* ==========================================================================
+   10. SCENE 01 — ENTRANCE
+   ========================================================================== */
+
+.scene--entrance {
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(255, 255, 255, 0.75),
+            transparent 40%
+        );
+}
+
+
+.entrance-copy {
+    width: min(100%, 760px);
+
+    margin-inline: auto;
+}
+
+
+.entrance-title {
+    margin-top: 0.2rem;
+
+    font-family: var(--font-hand);
+
+    font-size:
+        clamp(
+            3.1rem,
+            11vw,
+            7.2rem
+        );
+
+    font-weight: 600;
+
+    line-height: 0.98;
+
+    letter-spacing: -0.045em;
+
+    text-wrap: balance;
+}
+
+
+.entrance-subtitle {
+    margin-top: var(--space-4);
+
+    color: var(--ink-soft);
+
+    font-size: var(--text-base);
+}
+
+
+.entrance-action {
+    margin-top: var(--space-9);
+}
+
+
+.entrance-action .microcopy {
+    opacity: 0.7;
+}
+
+
+/* ==========================================================================
+   11. SCENE 02 — BIRTHDAY
+   ========================================================================== */
+
+.scene--birthday {
+    background:
+        radial-gradient(
+            circle at 50% 18%,
+            rgba(255, 255, 255, 0.68),
+            transparent 36%
+        );
+}
+
+
+.birthday-intro {
+    text-align: center;
+
+    margin-bottom: var(--space-8);
+}
+
+
+.birthday-intro .scene-title {
+    text-wrap: balance;
+}
+
+
+.scene-note {
+    margin-top: 0.3rem;
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-lg);
+
+    color: var(--brown);
+}
+
+
+.math-reveal {
+    width: min(100%, 980px);
+
+    margin-inline: auto;
+    padding:
+        clamp(1rem, 3vw, 2rem);
+
+    border:
+        1px solid rgba(41, 37, 34, 0.1);
+
+    background:
+        rgba(255, 253, 249, 0.48);
+
+    box-shadow:
+        var(--shadow-soft);
+
+    text-align: center;
+
+    overflow-x: auto;
+
+    scrollbar-width: thin;
+}
+
+
+.math-reveal__label {
+    margin-bottom: var(--space-4);
+
+    color: var(--ink-faint);
+
+    font-size: var(--text-xs);
+
+    font-weight: 600;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+}
+
+
+.math-reveal__equation {
+    min-width: max-content;
+
+    color: var(--ink);
+
+    font-size:
+        clamp(
+            0.78rem,
+            1.5vw,
+            1.25rem
+        );
+}
+
+
+.math-reveal__hint {
+    margin-top: var(--space-4);
+
+    color: var(--ink-faint);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-lg);
+}
+
+
+.age-reveal {
+    margin-top: var(--space-8);
+
+    text-align: center;
+}
+
+
+.age-reveal__pre {
+    color: var(--ink-faint);
+
+    font-size: var(--text-sm);
+}
+
+
+.age-reveal__number {
+    margin-top: -0.1rem;
+
+    font-family: var(--font-display);
+
+    font-size:
+        clamp(
+            4rem,
+            13vw,
+            8.5rem
+        );
+
+    line-height: 0.9;
+
+    letter-spacing: -0.08em;
+
+    color: var(--brown-deep);
+}
+
+
+.age-reveal__caption {
+    margin-top: 0.5rem;
+
+    color: var(--ink-soft);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-xl);
+}
+
+
+.birthday-transition {
+    margin-top: var(--space-9);
+
+    text-align: center;
+}
+
+
+.birthday-transition__text {
+    color: var(--ink-soft);
+
+    font-size: var(--text-base);
+}
+
+
+.birthday-transition__punchline {
+    margin-top: 0.35rem;
+
+    color: var(--brown);
+
+    font-size: var(--text-xl);
+}
+
+
+.sticker {
+    position: absolute;
+
+    z-index: 3;
+
+    pointer-events: none;
+
+    user-select: none;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 8px 9px rgba(45, 35, 28, 0.09)
+        );
+
+    transition:
+        transform 800ms var(--ease-spring);
+}
+
+
+.sticker--birthday {
+    width:
+        clamp(
+            58px,
+            9vw,
+            100px
+        );
+}
+
+
+.sticker--one {
+    top: 24%;
+    left: 5%;
+
+    transform: rotate(-8deg);
+}
+
+
+.sticker--two {
+    top: 42%;
+    right: 6%;
+
+    transform: rotate(9deg);
+}
+
+
+/* ==========================================================================
+   12. SCENE 03 — FLASHBACK
+   ========================================================================== */
+
+.scene--flashback {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(239, 229, 214, 0.42),
+            rgba(246, 240, 230, 0.95)
+        );
+}
+
+
+.memory-timeline {
+    position: relative;
+
+    width: min(100%, 850px);
+
+    margin-inline: auto;
+
+    padding-block: var(--space-2);
+}
+
+
+.memory-timeline::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0.6rem;
+    bottom: 0.6rem;
+
+    left: 19px;
+
+    width: 1px;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            var(--line-strong) 10%,
+            var(--line-strong) 90%,
+            transparent
+        );
+}
+
+
+.memory-card {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        40px
+        minmax(0, 1fr);
+
+    gap: 1.25rem;
+
+    padding-block: var(--space-6);
+}
+
+
+.memory-card__number {
+    position: relative;
+    z-index: 2;
+
+    display: grid;
+
+    width: 38px;
+    height: 38px;
+
+    place-items: center;
+
+    border:
+        1px solid rgba(41, 37, 34, 0.16);
+
+    border-radius: 50%;
+
+    background: var(--paper);
+
+    color: var(--ink-faint);
+
+    font-size: var(--text-xs);
+    font-weight: 700;
+}
+
+
+.memory-card__content {
+    padding:
+        1.2rem
+        1.25rem;
+
+    border:
+        1px solid rgba(41, 37, 34, 0.1);
+
+    background:
+        rgba(255, 253, 249, 0.5);
+
+    box-shadow:
+        0 8px 25px rgba(55, 43, 34, 0.045);
+
+    border-radius: var(--radius-md);
+}
+
+
+.memory-card__eyebrow {
+    margin-bottom: 0.35rem;
+
+    color: var(--brown);
+
+    font-size: var(--text-xs);
+    font-weight: 700;
+
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+
+.memory-card h3 {
+    margin-bottom: var(--space-4);
+
+    font-family: var(--font-display);
+
+    font-size: var(--text-xl);
+
+    font-weight: 500;
+
+    line-height: 1.1;
+}
+
+
+.memory-card__text {
+    color: var(--ink-soft);
+
+    font-size: var(--text-base);
+}
+
+
+.memory-card__text p + p {
+    margin-top: 0.45rem;
+}
+
+
+.memory-card__highlight {
+    margin-top: var(--space-4) !important;
+
+    color: var(--ink);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-lg);
+}
+
+
+.memory-card__quiet {
+    margin-top: var(--space-5) !important;
+
+    color: var(--ink-faint);
+
+    font-size: var(--text-sm);
+}
+
+
+.reflection {
+    width: min(100%, 720px);
+
+    margin:
+        var(--space-11)
+        auto
+        var(--space-6);
+
+    text-align: center;
+}
+
+
+.reflection__line {
+    color: var(--ink-soft);
+
+    font-family: var(--font-display);
+
+    font-size: var(--text-lg);
+
+    line-height: 1.4;
+}
+
+
+.reflection__line--indent {
+    margin-top: 0.55rem;
+
+    transform: translateX(-1rem);
+}
+
+
+.reflection__line--emphasis {
+    margin-top: 0.45rem;
+
+    color: var(--ink);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-2xl);
+}
+
+
+/* ==========================================================================
+   13. SCENE 04 — TRAITS
+   ========================================================================== */
+
+.scene--traits {
+    background:
+        radial-gradient(
+            circle at 20% 30%,
+            rgba(221, 194, 187, 0.18),
+            transparent 30%
+        );
+}
+
+
+.trait-stack {
+    width: min(100%, 780px);
+
+    margin-inline: auto;
+
+    display: grid;
+
+    gap: 0.65rem;
+}
+
+
+.trait-card {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        38px
+        minmax(0, 1fr)
+        30px;
+
+    align-items: center;
+
+    gap: 0.8rem;
+
+    width: 100%;
+
+    padding:
+        1rem
+        1.1rem;
+
+    border:
+        1px solid rgba(41, 37, 34, 0.1);
+
+    border-radius: var(--radius-md);
+
+    background:
+        rgba(255, 253, 249, 0.46);
+
+    color: var(--ink);
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        transform var(--transition-medium),
+        background var(--transition-medium),
+        box-shadow var(--transition-medium),
+        border-color var(--transition-medium);
+}
+
+
+.trait-card:hover {
+    transform: translateX(7px);
+
+    border-color:
+        rgba(128, 102, 83, 0.26);
+
+    background:
+        rgba(255, 253, 249, 0.84);
+
+    box-shadow:
+        var(--shadow-soft);
+}
+
+
+.trait-card__index {
+    color: var(--ink-faint);
+
+    font-size: var(--text-xs);
+
+    font-weight: 700;
+}
+
+
+.trait-card__content {
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.trait-card__label {
+    color: var(--ink-faint);
+
+    font-size: var(--text-xs);
+
+    line-height: 1.1;
+}
+
+
+.trait-card strong {
+    margin-top: 0.1rem;
+
+    font-family: var(--font-display);
+
+    font-size: var(--text-lg);
+
+    font-weight: 500;
+}
+
+
+.trait-card__symbol {
+    display: grid;
+
+    width: 28px;
+    height: 28px;
+
+    place-items: center;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 50%;
+
+    color: var(--ink-faint);
+
+    transition:
+        transform var(--transition-medium);
+}
+
+
+.trait-card:hover .trait-card__symbol {
+    transform: rotate(90deg);
+}
+
+
+.trait-ending {
+    margin-top: var(--space-10);
+
+    text-align: center;
+
+    color: var(--ink-soft);
+}
+
+
+.trait-ending__emphasis {
+    margin-top: 0.2rem;
+
+    color: var(--brown-deep);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-2xl);
+}
+
+
+/* ==========================================================================
+   14. SCENE 05 — DETAILS
+   ========================================================================== */
+
+.detail-grid {
+    width: min(100%, 900px);
+
+    margin-inline: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 0.8rem;
+}
+
+
+.detail-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    min-height: 112px;
+
+    padding: 1.2rem;
+
+    border:
+        1px solid rgba(41, 37, 34, 0.09);
+
+    border-radius: var(--radius-md);
+
+    background:
+        rgba(255, 253, 249, 0.56);
+
+    box-shadow:
+        0 8px 22px rgba(55, 43, 34, 0.035);
+
+    transition:
+        transform var(--transition-medium),
+        box-shadow var(--transition-medium);
+}
+
+
+.detail-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        var(--shadow-soft);
+}
+
+
+.detail-card__symbol {
+    flex: 0 0 auto;
+
+    display: grid;
+
+    width: 42px;
+    height: 42px;
+
+    place-items: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(128, 102, 83, 0.07);
+
+    font-size: 1.05rem;
+}
+
+
+.detail-card__body {
+    min-width: 0;
+}
+
+
+.detail-card__label {
+    display: block;
+
+    margin-bottom: 0.1rem;
+
+    color: var(--ink-faint);
+
+    font-size: var(--text-xs);
+}
+
+
+.detail-card h3 {
+    font-family: var(--font-display);
+
+    font-size: var(--text-lg);
+
+    font-weight: 500;
+
+    line-height: 1.2;
+}
+
+
+/* --------------------------------------------------------------------------
+   Side quest
+   -------------------------------------------------------------------------- */
+
+.sidequest {
+    width: min(100%, 900px);
+
+    margin:
+        var(--space-8)
+        auto
+        0;
+}
+
+
+.sidequest__trigger {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        auto
+        minmax(0, 1fr)
+        auto;
+
+    align-items: center;
+
+    width: 100%;
+
+    gap: 1rem;
+
+    padding:
+        1rem
+        1.1rem;
+
+    border:
+        1px solid rgba(41, 37, 34, 0.12);
+
+    border-radius: var(--radius-md);
+
+    background:
+        rgba(255, 253, 249, 0.56);
+
+    color: var(--ink);
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        border-color var(--transition-medium),
+        background var(--transition-medium),
+        box-shadow var(--transition-medium);
+}
+
+
+.sidequest__trigger:hover {
+    border-color:
+        rgba(128, 102, 83, 0.27);
+
+    background:
+        rgba(255, 253, 249, 0.85);
+
+    box-shadow:
+        var(--shadow-soft);
+}
+
+
+.sidequest__icon {
+    display: grid;
+
+    width: 42px;
+    height: 42px;
+
+    place-items: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(128, 102, 83, 0.07);
+}
+
+
+.sidequest__heading {
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+
+.sidequest__eyebrow {
+    color: var(--ink-faint);
+
+    font-size: var(--text-xs);
+
+    line-height: 1.2;
+}
+
+
+.sidequest__heading strong {
+    margin-top: 0.2rem;
+
+    font-size: var(--text-sm);
+
+    letter-spacing: 0.08em;
+}
+
+
+.sidequest__toggle {
+    display: grid;
+
+    width: 32px;
+    height: 32px;
+
+    place-items: center;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: 50%;
+
+    color: var(--ink-soft);
+
+    transition:
+        transform var(--transition-medium);
+}
+
+
+.sidequest__trigger[aria-expanded="true"]
+.sidequest__toggle {
+    transform: rotate(45deg);
+}
+
+
+.sidequest__details {
+    overflow: hidden;
+
+    margin-top: 0.5rem;
+
+    border-radius: var(--radius-md);
+
+    background:
+        rgba(255, 253, 249, 0.34);
+}
+
+
+.sidequest__content {
+    padding:
+        1.25rem
+        1.35rem;
+
+    border-left:
+        2px solid
+        rgba(128, 102, 83, 0.18);
+
+    color: var(--ink-soft);
+}
+
+
+.sidequest__content p + p {
+    margin-top: 0.7rem;
+}
+
+
+.sidequest__closing {
+    margin-top: 1rem !important;
+
+    color: var(--brown-deep);
+
+    font-size: var(--text-xl);
+}
+
+
+/* ==========================================================================
+   15. SCENE 06 — PHOTO
+   ========================================================================== */
+
+.scene--photo {
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(255, 255, 255, 0.78),
+            transparent 56%
+        );
+}
+
+
+.scene__inner--photo {
+    gap: 0;
+}
+
+
+.photo-intro {
+    margin-bottom: var(--space-6);
+}
+
+
+.photo-intro__line {
+    color: var(--ink);
+
+    font-family: var(--font-display);
+
+    font-size: var(--text-lg);
+}
+
+
+.photo-intro__line--quiet {
+    margin-top: 0.15rem;
+
+    color: var(--ink-faint);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-xl);
+}
+
+
+/* --------------------------------------------------------------------------
+   Portrait frame
+   -------------------------------------------------------------------------- */
+
+.portrait-frame {
+    position: relative;
+
+    width:
+        min(
+            100%,
+            clamp(
+                250px,
+                58vw,
+                510px
+            )
+        );
+
+    margin: 0 auto;
+}
+
+
+.portrait-frame__image-wrap {
+    position: relative;
+
+    width: 100%;
+
+    /*
+       We deliberately use aspect-ratio for the FRAME,
+       while the image itself remains contained.
+    */
+    aspect-ratio: 4 / 5;
+
+    padding:
+        clamp(0.45rem, 1vw, 0.75rem);
+
+    border:
+        1px solid rgba(41, 37, 34, 0.16);
+
+    background:
+        var(--white);
+
+    box-shadow:
+        var(--shadow-deep);
+
+    transform:
+        rotate(-1.4deg);
+}
+
+
+.portrait-frame__image {
+    width: 100%;
+    height: 100%;
+
+    /*
+       Critical:
+       no forced crop.
+    */
+    object-fit: contain;
+    object-position: center;
+
+    background:
+        var(--paper-deep);
+}
+
+
+.portrait-caption {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    margin-top: var(--space-5);
+
+    text-align: center;
+}
+
+
+.portrait-caption__primary {
+    color: var(--ink-soft);
+
+    font-size: var(--text-sm);
+}
+
+
+.portrait-caption__secondary {
+    display: inline-block;
+
+    margin-top: 0.2rem;
+
+    color: var(--ink);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-2xl);
+
+    line-height: 1;
+}
+
+
+.sticker--photo {
+    width:
+        clamp(
+            58px,
+            11vw,
+            105px
+        );
+
+    right:
+        clamp(
+            -30px,
+            -3vw,
+            -12px
+        );
+
+    bottom: 4%;
+
+    transform: rotate(9deg);
+}
+
+
+/* ==========================================================================
+   16. SCENE 07 — QUIET TRANSITION
+   ========================================================================== */
+
+.scene--quiet {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 255, 255, 0.72),
+            transparent 55%
+        );
+}
+
+
+.quiet-transition {
+    width: min(100%, 680px);
+
+    margin-inline: auto;
+}
+
+
+.quiet-transition__line {
+    color: var(--ink-soft);
+
+    font-family: var(--font-display);
+
+    font-size: var(--text-xl);
+
+    line-height: 1.4;
+}
+
+
+.quiet-transition__line + .quiet-transition__line {
+    margin-top: 0.3rem;
+}
+
+
+.quiet-transition__line--emphasis {
+    margin-top: 0.9rem !important;
+
+    color: var(--ink);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-2xl);
+}
+
+
+.quiet-transition__action {
+    margin-top: var(--space-10);
+}
+
+
+/* ==========================================================================
+   17. SCENE 08 — LETTER
+   ========================================================================== */
+
+.scene--letter {
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.2),
+            transparent 25%
+        );
+}
+
+
+.letter {
+    width: min(100%, 760px);
+
+    margin-inline: auto;
+
+    padding-bottom: var(--space-12);
+}
+
+
+.letter__header {
+    margin-bottom: var(--space-9);
+}
+
+
+.letter__eyebrow {
+    margin-bottom: 0.55rem;
+
+    color: var(--brown);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-xl);
+}
+
+
+.letter__title {
+    max-width: 700px;
+
+    color: var(--ink);
+
+    font-family: var(--font-display);
+
+    font-size: var(--text-2xl);
+
+    font-weight: 500;
+
+    line-height: 1.1;
+
+    letter-spacing: -0.025em;
+}
+
+
+.letter__block {
+    max-width: 690px;
+
+    margin-top: var(--space-9);
+
+    color: var(--ink-soft);
+
+    font-size: var(--text-lg);
+
+    line-height: 1.95;
+}
+
+
+.letter__block p + p {
+    margin-top: 1.35rem;
+}
+
+
+.letter__block--quiet {
+    color: var(--ink);
+}
+
+
+.letter__aside {
+    margin-top: 1.2rem !important;
+
+    color: var(--brown);
+
+    font-size: var(--text-xl);
+}
+
+
+.letter__heart {
+    margin:
+        var(--space-11)
+        0;
+
+    padding:
+        var(--space-8)
+        0;
+
+    border-top:
+        1px solid var(--line);
+
+    border-bottom:
+        1px solid var(--line);
+
+    text-align: center;
+}
+
+
+.letter__heart-line {
+    color: var(--ink-soft);
+
+    font-family: var(--font-display);
+
+    font-size: var(--text-lg);
+}
+
+
+.letter__heart-line + .letter__heart-line {
+    margin-top: 0.7rem;
+}
+
+
+.letter__heart-line--emphasis {
+    color: var(--ink);
+
+    font-size: var(--text-xl);
+}
+
+
+.letter__heart-line--signature {
+    margin-top: 1.5rem !important;
+
+    color: var(--brown-deep);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-2xl);
+}
+
+
+.letter__closing {
+    margin-top: var(--space-9);
+
+    color: var(--ink-soft);
+
+    font-size: var(--text-lg);
+
+    line-height: 1.9;
+}
+
+
+.letter__closing p + p {
+    margin-top: 0.75rem;
+}
+
+
+.letter__closing-emphasis {
+    color: var(--ink);
+
+    font-family: var(--font-display);
+
+    font-size: var(--text-xl);
+}
+
+
+.letter__signature {
+    margin-top: var(--space-7);
+
+    color: var(--brown-deep);
+
+    font-size: var(--text-2xl);
+}
+
+
+.scene-action--letter {
+    margin-top: var(--space-10);
+}
+
+
+.btn--letter-next {
+    border:
+        1px solid var(--line-strong);
+
+    background:
+        rgba(255, 253, 249, 0.4);
+}
+
+
+/* ==========================================================================
+   18. SCENE 09 — ONE LAST THING
+   ========================================================================== */
+
+.scene--one-last-thing {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(221, 194, 187, 0.12),
+            transparent 45%
+        );
+}
+
+
+.last-thing {
+    width: min(100%, 700px);
+
+    margin-inline: auto;
+}
+
+
+.last-thing__eyebrow {
+    margin-bottom: var(--space-7);
+
+    color: var(--ink-faint);
+
+    font-size: var(--text-sm);
+
+    letter-spacing: 0.08em;
+}
+
+
+.last-thing__copy {
+    color: var(--ink-soft);
+
+    font-size: var(--text-lg);
+
+    line-height: 1.9;
+}
+
+
+.last-thing__copy p + p {
+    margin-top: 1.05rem;
+}
+
+
+.last-thing__pause {
+    margin-top: var(--space-7) !important;
+
+    color: var(--brown-deep);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-2xl);
+}
+
+
+.last-thing__quiet-message {
+    margin-top: var(--space-10);
+
+    padding-top: var(--space-7);
+
+    border-top:
+        1px solid var(--line);
+
+    color: var(--ink-soft);
+
+    font-family: var(--font-display);
+
+    font-size: var(--text-lg);
+
+    line-height: 1.6;
+}
+
+
+.last-thing__emphasis {
+    margin-top: 0.8rem;
+
+    color: var(--ink);
+
+    font-family: var(--font-display);
+
+    font-size: var(--text-xl);
+}
+
+
+/* ==========================================================================
+   19. SCENE 10 — CONFESSION
+   --------------------------------------------------------------------------
+   The visual language deliberately becomes quieter.
+   ========================================================================== */
+
+.scene--confession {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 255, 255, 0.88),
+            transparent 58%
+        );
+}
+
+
+.confession {
+    position: relative;
+
+    width: min(100%, 820px);
+
+    margin-inline: auto;
+
+    text-align: center;
+}
+
+
+.confession__pre {
+    color: var(--ink-faint);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-xl);
+
+    line-height: 1.45;
+}
+
+
+.confession__pre--quiet {
+    max-width: 520px;
+
+    margin:
+        0.7rem
+        auto
+        0;
+
+    color: var(--ink-soft);
+
+    font-family: var(--font-display);
+
+    font-size: var(--text-base);
+}
+
+
+.confession__core {
+    margin-top: var(--space-9);
+}
+
+
+.confession__question-intro {
+    color: var(--ink-faint);
+
+    font-size: var(--text-sm);
+}
+
+
+.confession__title {
+    margin-top: 0.4rem;
+
+    color: var(--ink);
+
+    font-family: var(--font-display);
+
+    font-size:
+        clamp(
+            3rem,
+            10vw,
+            7rem
+        );
+
+    font-weight: 500;
+
+    line-height: 0.95;
+
+    letter-spacing: -0.06em;
+}
+
+
+.confession__question {
+    margin-top: 0.15rem;
+
+    color: var(--brown-deep);
+
+    font-family: var(--font-hand);
+
+    font-size:
+        clamp(
+            2.6rem,
+            8vw,
+            5.6rem
+        );
+
+    font-weight: 600;
+
+    line-height: 0.95;
+}
+
+
+.confession__context {
+    margin:
+        var(--space-7)
+        auto
+        0;
+
+    max-width: 570px;
+
+    color: var(--ink-faint);
+
+    font-size: var(--text-sm);
+
+    line-height: 1.75;
+}
+
+
+.confession__actions {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 0.7rem;
+
+    margin-top: var(--space-8);
+}
+
+
+.btn--yes {
+    min-width: 145px;
+
+    color: var(--white);
+
+    background:
+        var(--ink);
+
+    box-shadow:
+        0 14px 35px rgba(41, 37, 34, 0.14);
+}
+
+
+.btn--shy {
+    border:
+        1px solid var(--line-strong);
+
+    color: var(--ink-soft);
+}
+
+
+.btn--yes:hover {
+    box-shadow:
+        0 20px 50px rgba(41, 37, 34, 0.2);
+}
+
+
+.confession__microcopy {
+    min-height: 1.5em;
+
+    margin-top: 0.8rem;
+
+    color: var(--ink-faint);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-lg);
+}
+
+
+/* --------------------------------------------------------------------------
+   Confession stickers
+   -------------------------------------------------------------------------- */
+
+.sticker--confession {
+    width:
+        clamp(
+            55px,
+            9vw,
+            105px
+        );
+}
+
+
+.sticker--four {
+    top: 17%;
+    left: 8%;
+
+    transform: rotate(-11deg);
+}
+
+
+.sticker--five {
+    top: 23%;
+    right: 8%;
+
+    transform: rotate(12deg);
+}
+
+
+.sticker--six {
+    right: 15%;
+    bottom: 13%;
+
+    transform: rotate(-7deg);
+}
+
+
+/* ==========================================================================
+   20. SCENE 11 — AFTERGLOW
+   ========================================================================== */
+
+.scene--afterglow {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(221, 194, 187, 0.17),
+            transparent 55%
+        );
+}
+
+
+.afterglow {
+    width: min(100%, 680px);
+
+    margin-inline: auto;
+}
+
+
+.afterglow__eyebrow {
+    color: var(--ink-faint);
+
+    font-size: var(--text-sm);
+
+    letter-spacing: 0.08em;
+}
+
+
+.afterglow__title {
+    margin-top: var(--space-4);
+
+    color: var(--ink);
+
+    font-family: var(--font-display);
+
+    font-size: var(--text-2xl);
+
+    font-weight: 500;
+
+    line-height: 1.1;
+
+    letter-spacing: -0.025em;
+}
+
+
+.afterglow__copy {
+    margin-top: var(--space-5);
+
+    color: var(--ink-soft);
+
+    font-size: var(--text-lg);
+}
+
+
+.afterglow__copy--quiet {
+    color: var(--brown);
+
+    font-family: var(--font-hand);
+
+    font-size: var(--text-xl);
+}
+
+
+.afterglow__action {
+    margin-top: var(--space-9);
+}
+
+
+/* ==========================================================================
+   21. SCENE 12 — FINALE
+   ========================================================================== */
+
+.scene--final {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 255, 255, 0.8),
+            transparent 55%
+        );
+}
+
+
+.finale {
+    width: min(100%, 780px);
+
+    margin-inline: auto;
+
+    text-align: center;
+}
+
+
+.finale__small {
+    color: var(--ink-faint);
+
+    font-size: var(--text-sm);
+}
+
+
+.finale__title {
+    margin-top: var(--space-3);
+
+    color: var(--ink);
+
+    font-family: var(--font-display);
+
+    font-size:
+        clamp(
+            2.6rem,
+            8vw,
+            5.7rem
+        );
+
+    font-weight: 500;
+
+    line-height: 0.95;
+
+    letter-spacing: -0.06em;
+}
+
+
+.finale__name {
+    margin-top: 0.25rem;
+
+    color: var(--brown-deep);
+
+    font-size:
+        clamp(
+            2.2rem,
+            7vw,
+            4.8rem
+        );
+
+    line-height: 1;
+}
+
+
+.finale__unlock {
+    display: inline-flex;
+
+    align-items: center;
+
+    margin-top: var(--space-6);
+
+    padding:
+        0.42rem
+        0.75rem;
+
+    border:
+        1px solid var(--line);
+
+    border-radius: var(--radius-pill);
+
+    color: var(--brown);
+
+    background:
+        rgba(255, 253, 249, 0.45);
+
+    font-size: var(--text-xs);
+
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+
+.finale__wishes {
+    margin-top: var(--space-8);
+
+    color: var(--ink-soft);
+
+    font-size: var(--text-base);
+
+    line-height: 1.9;
+}
+
+
+.finale__wishes p + p {
+    margin-top: 0.1rem;
+}
+
+
+.finale__personal {
+    margin-top: var(--space-7);
+
+    color: var(--ink);
+
+    font-family: var(--font-display);
+
+    font-size: var(--text-lg);
+}
+
+
+.finale__gift {
+    margin-top: var(--space-7);
+
+    color: var(--brown);
+
+    font-size: var(--text-xl);
+}
+
+
+.final-signature {
+    margin-top: var(--space-9);
+
+    color: var(--ink-faint);
+
+    font-size: var(--text-sm);
+}
+
+
+.final-signature__main {
+    margin-top: 0.25rem;
+
+    color: var(--brown-deep);
+
+    font-size: var(--text-2xl);
+}
+
+
+.final-signature__name {
+    margin-top: 0.35rem;
+
+    color: var(--ink-faint);
+
+    font-size: var(--text-xs);
+
+    letter-spacing: 0.08em;
+}
+
+
+.scene-action--final {
+    margin-top: var(--space-7);
+}
+
+
+/* ==========================================================================
+   22. GLOBAL NAVIGATION
+   ========================================================================== */
+
+.global-navigation {
+    position: fixed;
+
+    right:
+        calc(
+            var(--safe-right)
+            + 0.5rem
+        );
+
+    bottom:
+        calc(
+            var(--safe-bottom)
+            + 0.55rem
+        );
+
+    z-index: 150;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.35rem;
+
+    padding: 0.25rem;
+
+    border:
+        1px solid rgba(41, 37, 34, 0.09);
+
+    border-radius: var(--radius-pill);
+
+    background:
+        rgba(255, 253, 249, 0.55);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 8px 24px rgba(55, 43, 34, 0.06);
+}
+
+
+.global-navigation__button {
+    display: grid;
+
+    width: 34px;
+    height: 34px;
+
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: transparent;
+
+    color: var(--ink-soft);
+
+    cursor: pointer;
+
+    font-size: 0.9rem;
+
+    transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+
+.global-navigation__button:hover {
+    background:
+        rgba(128, 102, 83, 0.08);
+
+    color: var(--ink);
+
+    transform: translateY(-1px);
+}
+
+
+.global-navigation__button--home {
+    color: var(--brown);
+
+    font-size: 1.15rem;
+}
+
+
+/* ==========================================================================
+   23. HYDRO / JS HEIGHT ANIMATION SUPPORT
+   ========================================================================== */
+
+.sidequest__details[hidden] {
+    display: none;
+}
+
+
+/* ==========================================================================
+   24. NOSCRIPT
+   ========================================================================== */
+
+.noscript-message {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: grid;
+
+    place-content: center;
+
+    gap: 1rem;
+
+    padding: 2rem;
+
+    background: var(--paper);
+
+    color: var(--ink);
+
+    text-align: center;
+}
+
+
+.noscript-message h1 {
+    font-family: var(--font-hand);
+
+    font-size: 3rem;
+}
+
+
+.noscript-message p {
+    max-width: 500px;
+
+    margin-inline: auto;
+
+    color: var(--ink-soft);
+}
+
+
+/* ==========================================================================
+   25. TABLET
+   ========================================================================== */
+
+@media (min-width: 600px) {
+
+    :root {
+        --scene-pad-inline:
+            clamp(2rem, 6vw, 4.5rem);
+    }
+
+
+    .scene-progress {
+        top:
+            calc(
+                var(--safe-top)
+                + 0.6rem
+            );
+    }
+
+
+    .math-reveal {
+        padding:
+            1.5rem
+            2rem;
+    }
+
+
+    .memory-card {
+        grid-template-columns:
+            46px
+            minmax(0, 1fr);
+
+        gap: 1.5rem;
+    }
+
+
+    .memory-timeline::before {
+        left: 22px;
+    }
+
+
+    .memory-card__number {
+        width: 44px;
+        height: 44px;
+    }
+
+
+    .trait-stack {
+        gap: 0.75rem;
+    }
+
+
+    .trait-card {
+        padding:
+            1.15rem
+            1.3rem;
+    }
+
+
+    .portrait-frame {
+        width:
+            min(
+                480px,
+                60vw
+            );
+    }
+
+
+    .letter__block {
+        font-size:
+            clamp(
+                1rem,
+                1rem + 0.3vw,
+                1.2rem
+            );
+    }
+}
+
+
+/* ==========================================================================
+   26. DESKTOP
+   ========================================================================== */
+
+@media (min-width: 900px) {
+
+    :root {
+        --scene-pad-inline:
+            clamp(3rem, 7vw, 6rem);
+
+        --scene-pad-block:
+            clamp(2rem, 5vw, 5rem);
+    }
+
+
+    .scene__inner--scroll {
+        padding-top:
+            calc(
+                var(--scene-pad-block)
+                + var(--safe-top)
+                + 1rem
+            );
+
+        padding-bottom:
+            calc(
+                var(--scene-pad-block)
+                + var(--safe-bottom)
+                + 2rem
+            );
+    }
+
+
+    .scene-header {
+        margin-bottom: var(--space-10);
+    }
+
+
+    .scene-progress {
+        top:
+            calc(
+                var(--safe-top)
+                + 1rem
+            );
+    }
+
+
+    .entrance-action {
+        margin-top: var(--space-10);
+    }
+
+
+    .memory-card {
+        grid-template-columns:
+            52px
+            minmax(0, 1fr);
+
+        gap: 1.7rem;
+    }
+
+
+    .memory-timeline::before {
+        left: 25px;
+    }
+
+
+    .memory-card__number {
+        width: 50px;
+        height: 50px;
+    }
+
+
+    .memory-card__content {
+        padding:
+            1.5rem
+            1.65rem;
+    }
+
+
+    .detail-grid {
+        grid-template-columns:
+            repeat(4, minmax(0, 1fr));
+    }
+
+
+    .detail-card {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        justify-content: space-between;
+
+        min-height: 175px;
+    }
+
+
+    .detail-card__symbol {
+        width: 48px;
+        height: 48px;
+    }
+
+
+    .sidequest__trigger {
+        padding:
+            1.25rem
+            1.35rem;
+    }
+
+
+    .portrait-frame {
+        width:
+            clamp(
+                360px,
+                36vw,
+                520px
+            );
+    }
+
+
+    .sticker--photo {
+        right: -70px;
+    }
+
+
+    .sticker--birthday {
+        width:
+            clamp(
+                72px,
+                7vw,
+                108px
+            );
+    }
+
+
+    .sticker--one {
+        top: 22%;
+        left: 8%;
+    }
+
+
+    .sticker--two {
+        top: 43%;
+        right: 8%;
+    }
+
+
+    .sticker--confession {
+        width:
+            clamp(
+                70px,
+                7vw,
+                115px
+            );
+    }
+
+
+    .sticker--four {
+        top: 15%;
+        left: 11%;
+    }
+
+
+    .sticker--five {
+        top: 18%;
+        right: 11%;
+    }
+
+
+    .sticker--six {
+        right: 17%;
+        bottom: 14%;
+    }
+
+
+    .global-navigation {
+        right:
+            calc(
+                var(--safe-right)
+                + 1rem
+            );
+
+        bottom:
+            calc(
+                var(--safe-bottom)
+                + 1rem
+            );
+    }
+}
+
+
+/* ==========================================================================
+   27. LARGE DESKTOP
+   ========================================================================== */
+
+@media (min-width: 1200px) {
+
+    .scene__inner {
+        max-width: 1240px;
+    }
+
+
+    .scene--birthday .scene__inner,
+    .scene--flashback .scene__inner,
+    .scene--traits .scene__inner,
+    .scene--details .scene__inner,
+    .scene--letter .scene__inner {
+        max-width: 1100px;
+    }
+
+
+    .ambient-orbit--one {
+        width: 520px;
+        height: 520px;
+
+        top: -260px;
+        left: -200px;
+    }
+
+
+    .ambient-orbit--two {
+        width: 580px;
+        height: 580px;
+
+        right: -280px;
+        bottom: -320px;
+    }
+}
+
+
+/* ==========================================================================
+   28. MOBILE — CORE RECOMPOSITION
+   --------------------------------------------------------------------------
+   IMPORTANT:
+   This is NOT simply "desktop scaled down".
+   ========================================================================== */
+
+@media (max-width: 599px) {
+
+    :root {
+
+        --scene-pad-inline:
+            clamp(
+                1rem,
+                5vw,
+                1.5rem
+            );
+
+        --scene-pad-block:
+            clamp(
+                1.15rem,
+                4vw,
+                1.8rem
+            );
+    }
+
+
+    body {
+        font-size: 16px;
+    }
+
+
+    .scene-progress {
+        top:
+            calc(
+                var(--safe-top)
+                + 0.25rem
+            );
+
+        gap: 0.4rem;
+    }
+
+
+    .scene-progress__line {
+        width: 23px;
+    }
+
+
+    /* ----------------------------------------------------------------------
+       Entrance
+       ---------------------------------------------------------------------- */
+
+    .entrance-title {
+        font-size:
+            clamp(
+                3rem,
+                15vw,
+                5.1rem
+            );
+    }
+
+
+    .entrance-subtitle {
+        max-width: 260px;
+
+        margin-inline: auto;
+    }
+
+
+    .entrance-action {
+        width: 100%;
+
+        margin-top: var(--space-8);
+    }
+
+
+    .btn--enter {
+        width: min(100%, 290px);
+    }
+
+
+    /* ----------------------------------------------------------------------
+       Birthday
+       ---------------------------------------------------------------------- */
+
+    .birthday-intro {
+        margin-bottom: var(--space-6);
+    }
+
+
+    .math-reveal {
+        width: calc(100vw - 2rem);
+
+        margin-left: 50%;
+
+        transform: translateX(-50%);
+
+        border-left: 0;
+        border-right: 0;
+
+        border-radius: 0;
+
+        box-shadow: none;
+    }
+
+
+    .math-reveal__equation {
+        font-size: 0.76rem;
+    }
+
+
+    .math-reveal__hint {
+        max-width: 270px;
+
+        margin-inline: auto;
+    }
+
+
+    .age-reveal__number {
+        font-size:
+            clamp(
+                4.8rem,
+                23vw,
+                7rem
+            );
+    }
+
+
+    .sticker--birthday {
+        width: 64px;
+    }
+
+
+    .sticker--one {
+        top: 21%;
+        left: 1rem;
+    }
+
+
+    .sticker--two {
+        top: 47%;
+        right: 0.7rem;
+    }
+
+
+    /* ----------------------------------------------------------------------
+       Flashback
+       ---------------------------------------------------------------------- */
+
+    .memory-card {
+        grid-template-columns:
+            32px
+            minmax(0, 1fr);
+
+        gap: 0.75rem;
+    }
+
+
+    .memory-timeline::before {
+        left: 15px;
+    }
+
+
+    .memory-card__number {
+        width: 31px;
+        height: 31px;
+
+        font-size: 0.62rem;
+    }
+
+
+    .memory-card__content {
+        padding:
+            1rem
+            0.95rem;
+    }
+
+
+    .memory-card h3 {
+        font-size: var(--text-lg);
+    }
+
+
+    .reflection {
+        margin-top: var(--space-9);
+    }
+
+
+    .reflection__line {
+        font-size: var(--text-base);
+    }
+
+
+    .reflection__line--indent {
+        transform: none;
+    }
+
+
+    .reflection__line--emphasis {
+        font-size: var(--text-xl);
+    }
+
+
+    /* ----------------------------------------------------------------------
+       Traits
+       ---------------------------------------------------------------------- */
+
+    .trait-card {
+        grid-template-columns:
+            30px
+            minmax(0, 1fr)
+            28px;
+
+        padding:
+            0.9rem
+            0.85rem;
+    }
+
+
+    .trait-card strong {
+        font-size: var(--text-base);
+    }
+
+
+    /* ----------------------------------------------------------------------
+       Details
+       ---------------------------------------------------------------------- */
+
+    .detail-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .detail-card {
+        min-height: 88px;
+
+        padding: 1rem;
+    }
+
+
+    .sidequest {
+        margin-top: var(--space-6);
+    }
+
+
+    .sidequest__trigger {
+        grid-template-columns:
+            38px
+            minmax(0, 1fr)
+            30px;
+
+        gap: 0.75rem;
+    }
+
+
+    .sidequest__icon {
+        width: 38px;
+        height: 38px;
+    }
+
+
+    /* ----------------------------------------------------------------------
+       Photo
+       ---------------------------------------------------------------------- */
+
+    .scene__inner--photo {
+        padding-top:
+            calc(
+                var(--scene-pad-block)
+                + var(--safe-top)
+            );
+
+        padding-bottom:
+            calc(
+                var(--scene-pad-block)
+                + var(--safe-bottom)
+            );
+    }
+
+
+    .photo-intro {
+        margin-bottom: var(--space-5);
+    }
+
+
+    .portrait-frame {
+        width:
+            min(
+                calc(100vw - 3rem),
+                390px
+            );
+    }
+
+
+    .portrait-frame__image-wrap {
+        aspect-ratio: 4 / 5;
+
+        padding: 0.45rem;
+    }
+
+
+    .portrait-caption {
+        margin-top: var(--space-4);
+    }
+
+
+    .portrait-caption__secondary {
+        font-size: var(--text-xl);
+    }
+
+
+    .sticker--photo {
+        right: -22px;
+        bottom: 4%;
+
+        width: 68px;
+    }
+
+
+    /* ----------------------------------------------------------------------
+       Quiet transition
+       ---------------------------------------------------------------------- */
+
+    .quiet-transition {
+        padding-inline: 0.4rem;
+    }
+
+
+    .quiet-transition__line {
+        font-size: var(--text-lg);
+    }
+
+
+    .quiet-transition__line--emphasis {
+        font-size: var(--text-xl);
+    }
+
+
+    .quiet-transition__action {
+        width: 100%;
+    }
+
+
+    .btn--transition {
+        width:
+            min(
+                100%,
+                330px
+            );
+    }
+
+
+    /* ----------------------------------------------------------------------
+       Letter
+       ---------------------------------------------------------------------- */
+
+    .letter {
+        width: 100%;
+    }
+
+
+    .letter__header {
+        margin-bottom: var(--space-7);
+    }
+
+
+    .letter__block {
+        margin-top: var(--space-7);
+
+        font-size: var(--text-base);
+
+        line-height: 1.85;
+    }
+
+
+    .letter__heart {
+        margin:
+            var(--space-9)
+            0;
+
+        padding:
+            var(--space-7)
+            0;
+    }
+
+
+    .letter__heart-line {
+        font-size: var(--text-base);
+    }
+
+
+    .letter__heart-line--emphasis {
+        font-size: var(--text-lg);
+    }
+
+
+    .letter__heart-line--signature {
+        font-size: var(--text-xl);
+    }
+
+
+    .letter__closing {
+        font-size: var(--text-base);
+
+        line-height: 1.8;
+    }
+
+
+    /* ----------------------------------------------------------------------
+       One last thing
+       ---------------------------------------------------------------------- */
+
+    .last-thing {
+        padding-inline: 0.15rem;
+    }
+
+
+    .last-thing__copy {
+        font-size: var(--text-base);
+
+        line-height: 1.85;
+    }
+
+
+    .last-thing__quiet-message {
+        font-size: var(--text-base);
+    }
+
+
+    .last-thing__emphasis {
+        font-size: var(--text-lg);
+    }
+
+
+    /* ----------------------------------------------------------------------
+       Confession
+       ---------------------------------------------------------------------- */
+
+    .confession {
+        padding-inline: 0.2rem;
+    }
+
+
+    .confession__pre {
+        font-size: var(--text-lg);
+    }
+
+
+    .confession__pre--quiet {
+        font-size: var(--text-sm);
+
+        line-height: 1.7;
+    }
+
+
+    .confession__core {
+        margin-top: var(--space-7);
+    }
+
+
+    .confession__title {
+        font-size:
+            clamp(
+                3.5rem,
+                17vw,
+                5.5rem
+            );
+    }
+
+
+    .confession__question {
+        font-size:
+            clamp(
+                3rem,
+                14vw,
+                5rem
+            );
+    }
+
+
+    .confession__context {
+        font-size: var(--text-xs);
+
+        max-width: 300px;
+    }
+
+
+    .confession__actions {
+        flex-direction: column;
+
+        width: 100%;
+
+        margin-top: var(--space-7);
+    }
+
+
+    .confession__actions .btn {
+        width:
+            min(
+                100%,
+                280px
+            );
+    }
+
+
+    .sticker--confession {
+        width: 60px;
+    }
+
+
+    .sticker--four {
+        top: 18%;
+        left: 0.5rem;
+    }
+
+
+    .sticker--five {
+        top: 21%;
+        right: 0.5rem;
+    }
+
+
+    .sticker--six {
+        right: 8%;
+        bottom: 10%;
+    }
+
+
+    /* ----------------------------------------------------------------------
+       Afterglow
+       ---------------------------------------------------------------------- */
+
+    .afterglow {
+        padding-inline: 0.2rem;
+    }
+
+
+    .afterglow__title {
+        font-size: var(--text-2xl);
+    }
+
+
+    .afterglow__copy {
+        font-size: var(--text-base);
+    }
+
+
+    /* ----------------------------------------------------------------------
+       Finale
+       ---------------------------------------------------------------------- */
+
+    .finale__title {
+        font-size:
+            clamp(
+                2.7rem,
+                13vw,
+                5rem
+            );
+    }
+
+
+    .finale__name {
+        font-size:
+            clamp(
+                2.2rem,
+                11vw,
+                4rem
+            );
+    }
+
+
+    .finale__wishes {
+        font-size: var(--text-sm);
+
+        line-height: 1.85;
+    }
+
+
+    .finale__personal {
+        font-size: var(--text-base);
+    }
+
+
+    .finale__gift {
+        font-size: var(--text-lg);
+    }
+
+
+    .final-signature__main {
+        font-size: var(--text-xl);
+    }
+
+
+    /* ----------------------------------------------------------------------
+       Global nav
+       ---------------------------------------------------------------------- */
+
+    .global-navigation {
+        right:
+            calc(
+                var(--safe-right)
+                + 0.35rem
+            );
+
+        bottom:
+            calc(
+                var(--safe-bottom)
+                + 0.35rem
+            );
+
+        opacity: 0.82;
+    }
+
+
+    .global-navigation__button {
+        width: 31px;
+        height: 31px;
+    }
+}
+
+
+/* ==========================================================================
+   29. VERY SHORT MOBILE SCREENS
+   --------------------------------------------------------------------------
+   e.g. 667px / small Android / landscape-like viewport.
+   Prevent content from being vertically squeezed.
+   ========================================================================== */
+
+@media (max-width: 599px) and (max-height: 720px) {
+
+    .scene__inner--center {
+        justify-content: flex-start;
+
+        overflow-y: auto;
+
+        padding-top:
+            calc(
+                var(--safe-top)
+                + 5rem
+            );
+
+        padding-bottom:
+            calc(
+                var(--safe-bottom)
+                + 4rem
+            );
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    .scene--entrance .scene__inner--center,
+    .scene--quiet .scene__inner--center,
+    .scene--confession .scene__inner--center,
+    .scene--afterglow .scene__inner--center,
+    .scene--final .scene__inner--center {
+        justify-content: flex-start;
+    }
+
+
+    .entrance-action {
+        margin-top: var(--space-7);
+    }
+
+
+    .portrait-frame {
+        width:
+            min(
+                calc(100vw - 4rem),
+                320px
+            );
+    }
+
+
+    .confession__core {
+        margin-top: var(--space-6);
+    }
+
+
+    .sticker--four {
+        top: 12%;
+    }
+
+
+    .sticker--five {
+        top: 15%;
+    }
+}
+
+
+/* ==========================================================================
+   30. LANDSCAPE MOBILE
+   ========================================================================== */
+
+@media (max-width: 899px) and (orientation: landscape) {
+
+    .scene__inner--center {
+        justify-content: flex-start;
+
+        overflow-y: auto;
+
+        padding-top:
+            calc(
+                var(--safe-top)
+                + 4.5rem
+            );
+
+        padding-bottom:
+            calc(
+                var(--safe-bottom)
+                + 3rem
+            );
+    }
+
+
+    .entrance-title {
+        font-size:
+            clamp(
+                2.8rem,
+                8vw,
+                4.5rem
+            );
+    }
+
+
+    .portrait-frame {
+        width:
+            min(
+                42vw,
+                360px
+            );
+    }
+
+
+    .confession__title {
+        font-size:
+            clamp(
+                3rem,
+                10vw,
+                5rem
+            );
+    }
+
+
+    .confession__question {
+        font-size:
+            clamp(
+                2.5rem,
+                8vw,
+                4rem
+            );
+    }
+}
+
+
+/* ==========================================================================
+   31. REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+    }
+
+
+    .ambient-noise {
+        animation: none;
+    }
+
+
+    .scene {
+        transition: none;
+    }
+}
+
+
+/* ==========================================================================
+   32. TOUCH DEVICES
+   -------------------------------------------------------------------------- */
+
+@media (hover: none) {
+
+    .btn:hover,
+    .trait-card:hover,
+    .detail-card:hover,
+    .sidequest__trigger:hover,
+    .global-navigation__button:hover {
+        transform: none;
+
+        box-shadow: none;
+    }
+
+
+    .btn:active {
+        transform: scale(0.98);
+    }
+
+
+    .trait-card:active {
+        transform: scale(0.99);
+    }
+}
+
+
+/* ==========================================================================
+   33. HIGH CONTRAST
+   ========================================================================== */
+
+@media (prefers-contrast: more) {
+
+    :root {
+        --line: rgba(41, 37, 34, 0.24);
+        --line-strong: rgba(41, 37, 34, 0.42);
+        --ink-soft: #4c4641;
+        --ink-faint: #706860;
+    }
+
+
+    .btn,
+    .trait-card,
+    .detail-card,
+    .sidequest__trigger,
+    .math-reveal,
+    .memory-card__content {
+        border-color: var(--line-strong);
+    }
+}
+
+
+/* ==========================================================================
+   34. PRINT
+   ========================================================================== */
+
+@media print {
+
+    body {
+        overflow: visible;
+    }
+
+
+    .app {
+        height: auto;
+        overflow: visible;
+    }
+
+
+    .scene {
+        position: relative;
+
+        display: block;
+
+        height: auto;
+        min-height: auto;
+
+        opacity: 1;
+
+        pointer-events: auto;
+
+        page-break-after: always;
+    }
+
+
+    .scene__inner,
+    .scene__inner--scroll {
+        height: auto;
+
+        overflow: visible;
+    }
+
+
+    .global-navigation,
+    .scene-progress,
+    .ambient {
+        display: none;
+    }
+}
